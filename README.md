@@ -12,7 +12,7 @@ A sample idea is shown below
 
 
 
-## Features of APP
+## Features of App
 * **Interactive Landing Page**: Modern UI featuring a particle-animated background using `Particles.js`.
 * **Theoretical Guide**: Comprehensive deep-dives into RST concepts, including:
     * **Elementary Discourse Units (EDUs)**: The fundamental building blocks of a text.
