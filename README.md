@@ -1,6 +1,6 @@
 # DD-AI: A New Way to Learn Discourse Analysis
 
-DD-AI is an interactive educational platform built with Streamlit that teaches users how to identify and map relationships between ideas in a text using Rhetorical Structure Theory (RST).
+DD-AI is an interactive educational platform that teaches users how to identify and map relationships between ideas in a text using Rhetorical Structure Theory (RST).
 
 
 ## Definition
