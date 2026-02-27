@@ -19,97 +19,125 @@ with st.sidebar:
         }
     )
 
+if "active_rel" not in st.session_state:
+    st.session_state.active_rel = None
+
+# --- THEORY PAGE ---
 # --- THEORY PAGE ---
 if selected == "Theory":
-    st.markdown("<h1 style='text-align: center;'>A GUIDE FOR COHESION</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>THEORETICAL GUIDE</h1>", unsafe_allow_html=True)
     st.divider()
 
+    # Section 1: EDUs
     _, center_col, _ = st.columns([1, 2, 1])
-
     with center_col:
         st.markdown("<h2 style='text-align: center;'>1. Elementary Discourse Units (EDUs)</h2>", unsafe_allow_html=True)
         st.markdown("<p style='text-align: center;'>Every text is made of minimal building blocks called EDUs, which are typically single clauses.</p>", unsafe_allow_html=True)
         
-        spacer_l, text_col, spacer_r = st.columns([1, 6, 1])
-        with text_col:
-            # FIXED: Removed the leading comma that caused the SyntaxError
-            annotated_text(
-                ("She was willing to skip class", "EDU 1"),
-                ("to attend the opening exhibit.", "EDU 2"), 
-            )
+        # Centering the annotated text
+        st.markdown("<div style='text-align: center; margin-bottom: 20px;'>", unsafe_allow_html=True)
+        annotated_text(
+            ("She was willing to skip class", "EDU 1"),
+            " ",
+            ("to attend the opening exhibit.", "EDU 2"), 
+        )
+        st.markdown("</div>", unsafe_allow_html=True)
 
-        st.divider()
+    st.divider()
 
+    # Section 2: Nucleus vs Satellite
+    _, center_col_2, _ = st.columns([1, 2, 1])
+    with center_col_2:
         st.markdown("<h2 style='text-align: center;'>2. Nucleus vs. Satellite</h2>", unsafe_allow_html=True)
         st.markdown("<p style='text-align: center;'>Relations usually consist of an essential <b>Nucleus</b> and a supporting <b>Satellite</b>.</p>", unsafe_allow_html=True)
 
         nuc_col, sat_col = st.columns(2)
         with nuc_col:
             st.markdown("""
-                <div style='background-color: #e6f4ea; padding: 15px; border-radius: 8px; text-align: center;'>
+                <div style='background-color: #e6f4ea; padding: 15px; border-radius: 8px; text-align: center; min-height: 120px;'>
                     <span style='color: #1e8e3e; font-weight: bold;'>The Nucleus</span>
+                    <p style='margin-top: 10px; color: black;'>Essential info that makes sense in isolation.</p>
                 </div>
-                <p style='text-align: center; margin-top: 10px;'>Essential info that makes sense in isolation.</p>
             """, unsafe_allow_html=True)
 
         with sat_col:
             st.markdown("""
-                <div style='background-color: #e8f0fe; padding: 15px; border-radius: 8px; text-align: center;'>
+                <div style='background-color: #e8f0fe; padding: 15px; border-radius: 8px; text-align: center; min-height: 120px;'>
                     <span style='color: #1a73e8; font-weight: bold;'>The Satellite</span>
+                    <p style='margin-top: 10px; color: black;'>Supporting info that depends on the nucleus.</p>
                 </div>
-                <p style='text-align: center; margin-top: 10px;'>Supporting info that depends on the nucleus.</p>
             """, unsafe_allow_html=True)
 
-        st.divider()
+    st.divider()
 
-        st.markdown("<h2 style='text-align: center;'>3. Rhetorical Relations</h2>", unsafe_allow_html=True)
-        st.markdown("<p style='text-align: center;'>There are 16 functional groups that act as the 'Glue' for cohesion.</p>", unsafe_allow_html=True)
-        
-        other_relations = {
-            "Background": "background, circumstance",
-            "Cause": "cause, result, consequence",
-            "Comparison": "comparison, preference, analogy",
-            "Condition": "condition, hypothetical, contingency",
-            "Contrast": "contrast, concession, antithesis",
-            "Elaboration": "elaboration-additional, example, definition",
-            "Enablement": "purpose, enablement",
-            "Evaluation": "evaluation, interpretation, comment",
-            "Explanation": "evidence, argumentative, reason",
-            "Joint": "list, disjunction",
-            "Manner-Means": "manner, means",
-            "Topic-Comment": "problem-solution, question-answer",
-            "Summary": "summary, restatement",
-            "Temporal": "temporal-before, sequence",
-            "Topic Change": "topic-shift, topic-drift",
-        }
+    # Section 3: Rhetorical Relations
+    st.markdown("<h2 style='text-align: center;'>3. Rhetorical Relations</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center;'>There are 16 functional groups that act as the 'Glue' for cohesion.</p>", unsafe_allow_html=True)
+    
+    other_relations = {
+        "Background": "background, circumstance",
+        "Cause": "cause, result, consequence",
+        "Comparison": "comparison, preference, analogy",
+        "Condition": "condition, hypothetical, contingency",
+        "Contrast": "contrast, concession, antithesis",
+        "Elaboration": "elaboration-additional, example, definition",
+        "Enablement": "purpose, enablement",
+        "Evaluation": "evaluation, interpretation, comment",
+        "Explanation": "evidence, argumentative, reason",
+        "Joint": "list, disjunction",
+        "Manner-Means": "manner, means",
+        "Topic-Comment": "problem-solution, question-answer",
+        "Summary": "summary, restatement",
+        "Temporal": "temporal-before, sequence",
+        "Topic Change": "topic-shift, topic-drift",
+    }
 
+    # BUTTON GRID (Centered)
+    col_left, col_center, col_right = st.columns([1, 5, 1])
+    with col_center:
         all_names = ["Attribution"] + list(other_relations.keys())
-        attr_clicked = False
+        
+        if "active_rel" not in st.session_state:
+            st.session_state.active_rel = None
 
+        # Render Buttons in 4 columns
         for i in range(0, len(all_names), 4):
             btn_cols = st.columns(4)
             for j in range(4):
                 if i + j < len(all_names):
                     name = all_names[i+j]
                     with btn_cols[j]:
-                        if name == "Attribution":
-                            attr_clicked = st.button("Attribution", use_container_width=True, key="main_attr")
-                        else:
-                            st.button(name, help=other_relations[name], use_container_width=True, key=f"btn_{name}")
+                        if st.button(name, use_container_width=True, key=f"btn_{name}"):
+                            st.session_state.active_rel = name
 
-        if attr_clicked:
+        # --- DYNAMIC CONTENT SECTION ---
+        if st.session_state.active_rel == "Attribution":
             st.divider()
             st.markdown("<h4 style='text-align: center;'>Attribution</h4>", unsafe_allow_html=True)
-            _, inner_mid, _ = st.columns([1, 4, 1])
-            with inner_mid:
-                st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+            
+            with st.container(border=True):
+                st.markdown("""
+                **Definition:** Attribution is used for reported speech (direct or indirect) and cognitive acts (feelings, thoughts, hopes).
+                
+                **Requirements:**
+                1. **Explicit Source:** There must be a clear mention of the speaker or source.
+                2. **Full Clause:** The message must be a separate clause.
+                """)
+            
+            # Create columns to center the visual content
+            _, center_content, _ = st.columns([1, 4, 1])
+            with center_content:
+                st.markdown("<div style='text-align: center; margin: 20px 0;'>", unsafe_allow_html=True)
                 annotated_text(
-                    "[ ", ("Mercedes officials said", "Satellite", "#ffd"), " ] [ ",
-                    ("they expect flat sales next year", "Nucleus", "#afa"), " ]"
+                    ("Mercedes officials said", "Satellite", "#ffd"),
+                    " ",
+                    ("they expect flat sales next year", "Nucleus", "#afa"), 
                 )
                 st.markdown("</div>", unsafe_allow_html=True)
+                
                 st.graphviz_chart('''
                     digraph {
+                        graph [rankdir=TB, center=true]
                         node [shape=box, style=filled, fontname="Helvetica"]
                         edge [fontname="Helvetica", fontsize=10]
                         Relation [label="ATTRIBUTION", fillcolor="#ff4b4b", fontcolor=white, shape=ellipse]
@@ -118,8 +146,25 @@ if selected == "Theory":
                         Relation -> Nucleus [label="Nucleus", arrowhead=none]
                         Relation -> Satellite [label="Satellite", style=dashed]
                     }
-                ''')
-                st.info("The **Satellite** is the source of the attribution and the **Nucleus** is the content of the reported message.")
+                ''', use_container_width=True)
+
+                # Centered Info Box
+                st.info("The **Satellite** is the source of the attribution and the **Nucleus** is the content of the message.")
+
+        elif st.session_state.active_rel == "Background":
+            st.divider()
+            st.markdown("<h4 style='text-align: center;'>Background</h4>", unsafe_allow_html=True)
+            
+            with st.container(border=True):
+                st.markdown("""
+                **Definition:** The satellite establishes the context or the grounds with respect to which the nucleus is to be interpreted. 
+                """)
+
+            _, center_content_bg, _ = st.columns([1, 4, 1])
+            with center_content_bg:
+                # Add your centered Background content here
+                st.write("Background content goes here...")
+
 
 # --- PRACTICE PAGE DATA ---
 
