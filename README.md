@@ -1,6 +1,6 @@
 # DD-AI: A New Way to Learn Discourse Analysis
 
-DD-AI is an interactive educational platform built with **Streamlit** that teaches users how to identify and map relationships between ideas in a text using **Rhetorical Structure Theory (RST)**.
+DD-AI is an interactive educational platform built with Streamlit that teaches users how to identify and map relationships between ideas in a text using Rhetorical Structure Theory (RST).
 
 
 ## Definition
@@ -13,7 +13,7 @@ A sample idea is shown below
 
 
 ## Features of App
-* **Interactive Landing Page**: Modern UI featuring a particle-animated background using `Particles.js`.
+* **Interactive Landing Page**: Modern UI featuring a particle-animated background 
 * **Theoretical Guide**: Comprehensive deep-dives into RST concepts, including:
     * **Elementary Discourse Units (EDUs)**: The fundamental building blocks of a text.
     * **Nucleus vs. Satellite**: Distinguishing between core information and supporting details.
