@@ -377,7 +377,26 @@ if st.session_state.page == "Landing":
             st.session_state.page = "Theory"
             st.rerun()
 
-
+    st.markdown("""
+        <style>
+        .footer-requirement {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: rgba(160, 165, 181, 0.5); /* Subtle, translucent grey */
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+        </style>
+        <div class="footer-requirement">
+            In partial requirement to Technopreneurship
+        </div>
+    """, unsafe_allow_html=True)
 
 # --- THEORY PAGE CONTENT ---
 if st.session_state.page == "Theory":
