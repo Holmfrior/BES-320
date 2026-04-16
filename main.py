@@ -373,7 +373,7 @@ if st.session_state.page == "Landing":
     col1, col2, col3 = st.columns([1, 1.5, 1]) 
     
     with col2:
-        if st.button("🚀 Get Started", type="primary", use_container_width=True):
+        if st.button("Get Started", type="primary", use_container_width=True):
             st.session_state.page = "Theory"
             st.rerun()
 
@@ -1212,7 +1212,7 @@ elif st.session_state.page == "Practice":
         # Difficulty selection
         diff_choice = st.radio("Select Difficulty:", ["Easy"], horizontal=True, label_visibility="collapsed")
         
-        if st.button("🚀 Generate Text", use_container_width=True):
+        if st.button("Generate Text", use_container_width=True):
             filtered_db = [ex for ex in EX_DATABASE if ex["difficulty"] == diff_choice]
             if filtered_db:
                 st.session_state.current_ex = random.choice(filtered_db)
@@ -1234,7 +1234,7 @@ elif st.session_state.page == "Practice":
                 st.markdown("<h4 style='color: #e06c75; margin-bottom: 15px;'>Graph Tools</h4>", unsafe_allow_html=True)
                 new_rel = st.selectbox("1. Pick Relation:", ["None"] + RELATION_GROUPS, key="rel_selector")
                 
-                if st.button("➕ Add Relation Node", use_container_width=True, type="primary"):
+                if st.button("Add Relation Node", use_container_width=True, type="primary"):
                     if new_rel != "None":
                         rel_id = f"REL_{len(st.session_state.active_relations) + 1}"
                         st.session_state.active_relations.append({"id": rel_id, "name": new_rel})
@@ -1244,12 +1244,12 @@ elif st.session_state.page == "Practice":
                 
                 del_col1, del_col2 = st.columns(2)
                 with del_col1:
-                    if st.button("↩️ Undo Edge", use_container_width=True):
+                    if st.button("Undo Edge", use_container_width=True):
                         if st.session_state.user_edges:
                             st.session_state.user_edges.pop()
                             st.rerun()
                 with del_col2:
-                    if st.button("🗑️ Delete Rel", use_container_width=True):
+                    if st.button("Delete Rel", use_container_width=True):
                         if st.session_state.active_relations:
                             removed_rel = st.session_state.active_relations.pop()
                             # Clean up edges connected to the deleted relation
@@ -1262,7 +1262,7 @@ elif st.session_state.page == "Practice":
                 st.session_state.checked = False
                 st.rerun()
 
-            if st.button("✅ Check Answer", use_container_width=True, type="primary"):
+            if st.button(" Check Answer", use_container_width=True, type="primary"):
                 st.session_state.checked = True
 
     # --- LEFT COLUMN: GRAPH VISUALIZATION ---
